@@ -1,0 +1,222 @@
+Test Questions for Object-Oriented Programming in Swift
+Lesson 6: Classes and Objects
+
+    Object-Oriented Programming (OOP) Concepts:
+        Define encapsulation, inheritance, and polymorphism in the context of object-oriented programming.
+
+1. Encapsulation:
+Encapsulation is the bundling of data (attributes) and methods (functions) that operate on that data into a single unit known as a class.
+It hides the internal details of how an object works and exposes only what is necessary. Encapsulation helps in organizing code and protecting the integrity of the data by restricting access to certain parts of the object.
+
+2. Inheritance:
+Inheritance is a method that allows a class to inherit properties and behaviors from another class.
+It promotes code reusability by allowing a new class to use the existing class's features. The subclass inherits attributes and methods from the superclass, and it can also have its own additional features or override existing ones.
+
+3. Polymorphism:
+Polymorphism allows objects of different classes to be treated as objects of a common base class. It enables a single interface to represent different types.
+Polymorphism allows a method to do different things based on the object it is acting upon. This can be achieved through method overriding
+ 
+
+    Class Declaration in Swift:
+        Write a Swift class declaration for a "Book" with properties like title, author, and publication year.
+
+class Book {
+    // Properties
+    var title: String
+    var author: String
+    var publicationYear: Int
+
+    // Initializer
+    init(title: String, author: String, publicationYear: Int) {
+        self.title = title
+        self.author = author
+        self.publicationYear = publicationYear
+    }
+}
+ // Creating an instance of the Book class
+let myBook = Book(title: "The Great Gatsby", author: "F. Scott Fitzgerald", publicationYear: 1925)
+
+// Accessing properties
+print("Title: \(myBook.title)")
+print("Author: \(myBook.author)")
+print("Publication Year: \(myBook.publicationYear)")
+
+
+
+
+    Creating Objects:
+        Given the Car class from the lesson, create an instance of the class named "mySecondCar" with a model "Honda" and year 2020.
+class Car {
+    // Properties
+    var model: String
+    var year: Int
+
+    // Initializer
+    init(model: String, year: Int) {
+        self.model = model
+        self.year = year
+    }
+
+}
+
+// Creating an instance of the Car class named "mySecondCar"
+let mySecondCar = Car(model: "Honda", year: 2020)
+
+// Accessing properties
+print("Model: \(mySecondCar.model)")
+print("Year: \(mySecondCar.year)")
+
+
+    Properties and Methods:
+        Explain the difference between a class property and a class method. Provide an example for each.
+
+A class property is a property that belongs to the class itself rather than to instances of the class. It is shared among all instances of the class. Class properties are defined as static in swift.
+
+class MathOperations {
+    static var pi = 3.14159
+}
+
+// Accessing the class property
+let value = MathOperations.pi
+print(value) // Output: 3.14159
+
+A class method is a method that belongs to the class itself, rather than to instances of the class. Like class properties, class methods are also shared among all instances of the class. Class method is defined as static or class
+
+class MathOperations {
+    class func square(_ number: Double) -> Double {
+        return number * number
+    }
+}
+
+// Calling the class method
+let result = MathOperations.square(4.0)
+print(result) // Output: 16.0
+
+
+
+Lesson 7: Inheritance, Encapsulation, and Polymorphism
+
+    Subclassing and Inheritance:
+        Define subclassing and explain how it relates to the concept of inheritance. Provide an example with the ElectricCar subclass.
+
+Subclassing is a concept where a new class, called the subclass, can inherit attributes and behaviors from an existing class, known as the superclass. This relationship between the subclass and superclass is referred to as inheritance. The subclass can extend or override the functionality of the superclass, adding new features or modifying existing ones.
+
+Inheritance is a principle in OOP that allows for code reuse, abstraction, and the creation of classes. The subclass inherits the properties and methods of the superclass, promoting a structure where more subclasses can inherit from more superclasses.
+
+EXAMPLE
+
+class Car {
+    var brand: String
+    var model: String
+    var fuelType: String
+
+    init(brand: String, model: String, fuelType: String) {
+        self.brand = brand
+        self.model = model
+        self.fuelType = fuelType
+    }
+
+    func startEngine() {
+        print("Starting the engine of \(brand) \(model)")
+    }
+}
+
+class ElectricCar: Car {
+    var batteryCapacity: Double
+
+    init(brand: String, model: String, batteryCapacity: Double) {
+        // Call the designated initializer of the superclass (Car)
+        super.init(brand: brand, model: model, fuelType: "Electric")
+        
+        // Initialize the additional property specific to ElectricCar
+        self.batteryCapacity = batteryCapacity
+    }
+
+    // Override the startEngine method to provide an electric-specific implementation
+    override func startEngine() {
+        print("\(brand) \(model) is starting the electric motor")
+    }
+
+    func chargeBattery() {
+        print("\(brand) \(model) is charging its battery")
+    }
+}
+
+
+    Encapsulation in Swift:
+        Describe the purpose of encapsulation and provide a scenario where using the private keyword for a property is beneficial.
+
+By using modifiers like private, you can control the visibility of properties and methods. This helps in hiding the internal details of an object from external code, promoting a separation between the public interface and the implementation.
+ 
+EXAMPLE
+class BankAccount {
+    private var balance: Double = 0.0
+
+    init(initialBalance: Double) {
+        self.balance = initialBalance
+    }
+
+    func deposit(amount: Double) {
+        // Private property 'balance' is accessible within the class
+        balance += amount
+        print("Deposit of \(amount) completed. New balance: \(balance)")
+    }
+
+    func withdraw(amount: Double) {
+        // Check if sufficient funds are available before withdrawing
+        if amount <= balance {
+            balance -= amount
+            print("Withdrawal of \(amount) completed. New balance: \(balance)")
+        } else {
+            print("Insufficient funds. Withdrawal canceled.")
+        }
+    }
+
+    func getBalance() -> Double {
+        // Public method providing access to the private property 'balance'
+        return balance
+    }
+}
+
+let account = BankAccount(initialBalance: 1000.0)
+account.deposit(amount: 500.0)
+account.withdraw(amount: 200.0)
+print("Current balance: \(account.getBalance())")
+
+
+    Polymorphism and Method Overriding:
+        Define polymorphism and demonstrate method overriding with the SportsCar class. Explain the output of the overridden method.
+
+Polymorphism is a method in OOP that allows objects of different types to be treated as objects of a common type. 
+class Car {
+    func startEngine() {
+        print("Generic car engine started")
+    }
+}
+
+class SportsCar: Car {
+    override func startEngine() {
+        print("Sports car engine started with a roar!")
+    }
+}
+
+// Example usage
+let genericCar = Car()
+let sportsCar = SportsCar()
+
+genericCar.startEngine()  // Output: Generic car engine started
+sportsCar.startEngine()   // Output: The Sports car engine started with a roar!
+
+genericCar.startEngine() calls the method from the base class, so it prints "Generic car engine started."
+sportsCar.startEngine() calls the overridden method in the SportsCar class, so it prints "Sports car engine started with a roar!"
+
+
+
+Explain the terms below
+private, fileprivate, internal, public, and open.
+
+PRIVATE: This can be accessed only within the file in which it is defined.
+FILEPRIVATE: Can be accessed within the same file, regardless of whether it's in the same declaration or an extension.
+INTERNAL: This can be accessed within any source file from the same module.
+PUBLIC: This can be accessed from any source file in the module and from other modules that import the module.
+OPEN: Classes and class members marked as open can be subclassed and overridden in other modules. It's commonly used in the context of creating open class hierarchies for subclassing.
